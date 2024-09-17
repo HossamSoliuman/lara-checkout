@@ -1,0 +1,25 @@
+{
+    "name": "hossamsoliuman/lara-checkout",
+    "description": "A Laravel package for managing checkouts",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Hossam Soliuman",
+            "email": "hossamsoliuman@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hossam\\LaraCheckout\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hossam\\LaraCheckout\\LaraCheckoutServiceProvider"
+            ]
+        }
+    }
+}
