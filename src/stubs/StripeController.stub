@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers\Checkout;
+
+use Hossam\LaraCheckout\Services\StripeService;
+use Illuminate\Http\Request;
+
+class StripeController
+{
+    protected $stripeService;
+
+    public function __construct(StripeService $stripeService)
+    {
+        $this->stripeService = $stripeService;
+    }
+
+    public function checkout(Request $request)
+    {
+        $products = [
+            ['name' => 'Product 1', 'price' => 1000, 'quantity' => 1], // Price in cents
+            ['name' => 'Product 2', 'price' => 1500, 'quantity' => 2],
+        ];
+
+        $checkoutUrl = $this->stripeService->createCheckout($products);
+
+        if ($checkoutUrl) {
+            return redirect($checkoutUrl);
+        }
+
+        return redirect()->back()->withErrors('Failed to initiate Stripe checkout.');
+    }
+
+    public function success(Request $request)
+    {
+        $sessionId = $request->query('session_id');
+
+        if ($this->stripeService->verifyPayment($sessionId)) {
+            return redirect()->route('home')->with('success', 'Payment completed successfully.');
+        }
+
+        return redirect()->route('home')->withErrors('Payment failed.');
+    }
+}
