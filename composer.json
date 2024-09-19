@@ -10,6 +10,9 @@
             "email": "hossamsoliuman@gmail.com"
         }
     ],
+    "require": {
+        "srmklive/paypal": "^3.0"
+    },
     "autoload": {
         "psr-4": {
             "Hossam\\LaraCheckout\\": "src/"
